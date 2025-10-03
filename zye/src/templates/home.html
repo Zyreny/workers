@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zyruls 縮網址</title>
+    <meta name="description" content="Zyruls 是一個用來縮短網址的工具，把原本可能近100個字的連結縮短成約10個字、甚至更少">
+    <link rel="stylesheet" href="https://zyreny.com/static/page/style.css">
+
+    <link rel="icon" href="https://zyreny.com/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href="https://zyreny.com/icon.svg" />
+    <link rel="apple-touch-icon" href="https://zyreny.com/apple-touch-icon.png" />
+    <link rel="manifest" href="https://zyreny.com/site.webmanifest" />
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zye.me/">
+    <meta property="og:title" content="Zyruls 縮網址">
+    <meta property="og:description" content="Zyruls 是一個用來縮短網址的工具，把原本非常多字的連結縮短成大約 10 個字符，甚至更少！">
+    <meta property="og:image" content="https://zyreny.com/og_img.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Zyreny">
+    <meta property="og:site_name" content="Zyreny">
+    <meta property="og:locale" content="zh_TW">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://zye.me/">
+    <meta property="twitter:title" content="Zyruls 縮網址">
+    <meta property="twitter:description" content="Zyruls 是一個用來縮短網址的工具，把原本非常多字的連結縮短成大約 10 個字符，甚至更少！">
+    <meta property="twitter:image" content="https://zyreny.com/og_img.png">
+    <meta property="twitter:image:width" content="1200">
+    <meta property="twitter:image:height" content="630">
+    <meta property="twitter:image:type" content="image/png">
+
+    <meta name="theme-color" content="#2885e2">
+    <meta name="application-name" content="Zyreny">
+    <link rel="canonical" href="https://zye.me/">
+
+    <script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "Website",
+			name: "Zyruls",
+			alternateName: "Zyruls",
+			url: "https://zye.me",
+			image: "https://zye.me/og_img",
+			description: "Zyruls 是一個用來縮短網址的工具，把原本非常多字的連結縮短成大約 10 個字符，甚至更少！",
+		}
+    </script>
+
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-wrapper {
+            width: 100%;
+        }
+
+        .hero {
+            background: var(--block-bg);
+            border-radius: 15px;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin: 3rem 0;
+        }
+
+        .hero .desc {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .hero .example {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero .title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem
+        }
+
+        .hero .title h1 {
+            color: var(--title-color);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero .title svg {
+            width: 50px;
+            height: 100%;
+            transform: translateY(-2px);
+            fill: #103458;
+        }
+
+        .hero p {
+            color: var(--text-color);
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            flex: 0 0 calc(50% - 1.2rem);
+            background-color: var(--bg-color);
+            border-radius: 10px;
+            padding: 2.2rem;
+            display: flex;
+            flex-direction: column;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #174879;
+            margin: 0.6rem;
+        }
+
+        .feature svg {
+            width: 55px;
+            height: 55px;
+            fill: #174879;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--theme-color);
+            color: white;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 3rem 0 3.8rem;
+        }
+
+        .cta-button:hover {
+            background: var(--btn-color);
+        }
+
+        .code {
+            background: var(--bg-color);
+            padding: 0.3rem 1rem;
+            border-radius: 6px;
+            font-family: 'Fira Code', monospace;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin: 0 0.6rem;
+            border: 1px solid var(--text-color)
+        }
+
+        @media screen and (max-width: 768px) {
+            .feature {
+                flex: 0 0 100%;
+                margin: 0.6rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div nav></div>
+
+    <main>
+        <div class="content-wrapper">
+            <div class="hero">
+                <div class="title">
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" "fill=" #174879">
+                        <path
+                            d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z" />
+                        <path
+                            d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z" />
+                    </svg>
+                    <h1>Zyruls</h1>
+                </div>
+                <div class="desc">
+                    <p>快速、安全、可靠的縮網址服務</p>
+                    <div class="example">
+                        <p>讓您的長網址變成簡潔的
+                        <div class="code">zye.me/abc123</div> 格式</p>
+                    </div>
+                </div>
+                <a href="https://zyreny.com/zyruls/" class="cta-button">建立短網址</a>
+
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                                viewBox="0 -960 960 960" width="24px" fill="#174879">
+                                <path
+                                    d="m422-232 207-248H469l29-227-185 267h139l-30 208ZM320-80l40-280H160l360-520h80l-40 320h240L400-80h-80Zm151-390Z" />
+                            </svg></div>
+                        <div>高速重新導向</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon"><svg class="icon-svg" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 -960 960 960" width="24px" fill="#174879">
+                                <path
+                                    d="M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h40v-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm0-80h480v-400H240v400Zm240-120q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM360-640h240v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80ZM240-160v-400 400Z" />
+                            </svg></div>
+                        <div>密碼保護</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                                viewBox="0 -960 960 960" width="24px" fill="#174879">
+                                <path
+                                    d="M420-360h120l-23-129q20-10 31.5-29t11.5-42q0-33-23.5-56.5T480-640q-33 0-56.5 23.5T400-560q0 23 11.5 42t31.5 29l-23 129Zm60 280q-139-35-229.5-159.5T160-516v-244l320-120 320 120v244q0 152-90.5 276.5T480-80Zm0-84q104-33 172-132t68-220v-189l-240-90-240 90v189q0 121 68 220t172 132Zm0-316Z" />
+                            </svg></div>
+                        <div>極致安全、隱私</div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                                viewBox="0 -960 960 960" width="24px" fill="#174879">
+                                <path
+                                    d="M320-240 80-480l240-240 57 57-184 184 183 183-56 56Zm320 0-57-57 184-184-183-183 56-56 240 240-240 240Z" />
+                            </svg></div>
+                        <div>自訂連結</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer></footer>
+
+    <script src="https://zyreny.com/static/page/main.js"></script>
+    <script>
+        loadFonts(["Noto Sans TC", "Fira Code", "Huninn"]);
+        loadNav([
+            { name: "首頁", href: "https://zyreny.com/", id: "home" },
+            { name: "作品", href: "https://zyreny.com/projects", id: "projects" },
+            { name: "短網址", href: "https://zyreny.com/zyruls/", id: "link" },
+        ]);
+    </script>
+</body>
+
+</html>

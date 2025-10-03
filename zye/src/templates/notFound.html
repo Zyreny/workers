@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>找不到短網址</title>
+    <meta name="description" content="這個短網址可能已經失效或被刪除了，但你還是可以到 zye.me 建立新的短網址。">
+    
+    <link rel="icon" href="https://zyreny.com/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href="https://zyreny.com/icon.svg" />
+    <link rel="apple-touch-icon" href="https://zyreny.com/apple-touch-icon.png" />
+    <link rel="manifest" href="https://zyreny.com/site.webmanifest" />
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zye.me/">
+    <meta property="og:title" content="找不到短網址 - Zyruls">
+    <meta property="og:description" content="這個短網址可能已經失效或被刪除了，但你還是可以到 zye.me 建立新的短網址。">
+    <meta property="og:image" content="https://zyreny.com/og_img.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="Zyreny">
+    <meta property="og:site_name" content="Zyreny">
+    <meta property="og:locale" content="zh_TW">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://zye.me/">
+    <meta property="twitter:title" content="找不到短網址 - Zyruls">
+    <meta property="twitter:description" content="這個短網址可能已經失效或被刪除了，但你還是可以到 zye.me 建立新的短網址。">
+    <meta property="twitter:image" content="https://zyreny.com/og_img.png">
+    <meta property="twitter:image:width" content="1200">
+    <meta property="twitter:image:height" content="630">
+    <meta property="twitter:image:type" content="image/png">
+
+    <meta name="theme-color" content="#2885e2">
+    <meta name="application-name" content="Zyreny">
+    <link rel="canonical" href="https://zye.me/">
+    <link rel="stylesheet" href="https://zyreny.com/static/page/style.css">
+
+
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            width: 90%;
+            max-width: 600px;
+            margin: 0 auto;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .error-container {
+            width: 100%;
+            background: var(--block-bg);
+            border-radius: 15px;
+            padding: 3rem 4rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin: 3rem 0;
+        }
+
+        .error-code {
+            font-size: 6rem;
+            font-weight: 700;
+            color: var(--theme-color);
+            margin-bottom: 3rem;
+            opacity: 0.8;
+            line-height: 0.7;
+        }
+
+        .error-title {
+            color: var(--title-color);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .error-message {
+            color: var(--text-color);
+            font-size: 1rem;
+            line-height: 2;
+            margin-bottom: 2rem;
+        }
+
+        .short-code {
+            background: var(--bg-color);
+            padding: 0.3rem 1rem;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-weight: 600;
+            color: var(--text-color);
+            margin: 0.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--theme-color);
+            color: white;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--btn-color);
+        }
+    </style>
+</head>
+<body>
+    <div nav></div>
+
+    <main>
+        <div class="error-container">
+            <div class="error-code">404</div>
+            <div class="error-title">找不到短網址</div>
+            <div class="error-message">
+                抱歉，短網址 <span class="short-code">zye.me/{{code}}</span> 不存在或已過期。<br>
+                請檢查網址是否正確，或聯繫分享者確認。
+            </div>
+            <a href="https://zyreny.com/zyruls/" class="cta-button">建立新的短網址</a>
+        </div>
+    </main>
+
+    <footer></footer>
+
+    <script src="https://zyreny.com/static/page/main.js"></script>
+    <script>
+        loadFonts(["Noto Sans TC", "Fira Code", "Huninn"]);
+        loadNav([
+            { name: "首頁", href: "https://zyreny.com/", id: "home" },
+            { name: "作品", href: "https://zyreny.com/projects/", id: "projects" },
+            { name: "短網址", href: "https://zyreny.com/zyruls/", id: "link" },
+            { name: "聯絡", href: "https://zyreny.com/#Contact", id: "contact" }
+        ]);
+    </script>
+</body>
+
+</html>
