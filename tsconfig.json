@@ -41,5 +41,5 @@
 		]
 	},
 	"exclude": ["test", "node_modules", "dist", ".wrangler"],
-	"include": ["*/src/**/*.ts", "*/src/**/*.d.ts"]
+	"include": ["workers/**/src/**/*.ts", "workers/**/src/**/*.d.ts"]
 }

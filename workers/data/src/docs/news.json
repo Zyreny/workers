@@ -1,0 +1,72 @@
+{
+    "name": "Zyreny 新聞資料操作 API",
+    "description": "這個 API 可以對 Zyreny 網站的新聞資料進行各種操作，例如列出、新增、刪除等。",
+    "baseUrl": "https://api.zyreny.com/data/news",
+    "endpoints": {
+        "GET /": "這個 API 的文檔",
+        "GET /list": {
+            "description": "列出所有新聞資料",
+            "response": [
+                {
+                    "id": "number - 新聞 ID",
+                    "category": "string - 新聞分類",
+                    "title": "string - 新聞標題",
+                    "content": "string - 新聞內容",
+                    "created_at": "string - 新聞建立時間 (ISO 8601 格式)",
+                    "categoryZH": "string - 新聞分類中文名稱"
+                }
+            ]
+        },
+        "GET /list/{number}": {
+            "description": "列出最新的 N 筆新聞資料",
+            "parameters": {
+                "number": "要列出的新聞數量"
+            },
+            "response": "和 GET /list 相同，但只包含最新的 N 筆資料"
+        },
+        "GET /list/days/{days}": {
+            "description": "列出過去 N 天內的新聞資料",
+            "parameters": {
+                "days": "要列出的天數"
+            },
+            "response": "和 GET /list 相同，但只包含過去 N 天內的資料"
+        },
+        "POST /add": {
+            "description": "新增新聞資料",
+            "body": {
+                "apiKey": "string - API Key",
+                "category": "新聞分類",
+                "title": "新聞標題",
+                "content": "新聞內容"
+            },
+            "response": {
+                "success": "boolean - 是否成功",
+                "message": "string - 回應訊息"
+            }
+        },
+        "DELETE /del": {
+            "description": "刪除最後一筆新聞資料",
+            "body": {
+                "apiKey": "string - API Key"
+            },
+            "response": {
+                "success": "boolean - 是否成功",
+                "message": "string - 回應訊息"
+            }
+        },
+        "DELETE /del/{id}": {
+            "description": "刪除指定 ID 的新聞資料",
+            "parameters": {
+                "id": "要刪除的新聞 ID"
+            },
+            "body": {
+                "apiKey": "string - API Key"
+            },
+            "response": {
+                "success": "boolean - 是否成功",
+                "message": "string - 回應訊息"
+            }
+        },
+        "note": "新增和刪除操作需要 API Key 才能存取"
+    }
+}

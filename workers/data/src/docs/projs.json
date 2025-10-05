@@ -1,0 +1,64 @@
+{
+    "name": "Zyreny 作品資料操作 API",
+    "description": "這個 API 可以對 Zyreny 網站的作品資料進行各種操作，例如列出、新增、刪除等。",
+    "baseUrl": "https://api.zyreny.com/data/projs",
+    "endpoints": {
+        "GET /": "這個 API 的文檔",
+        "GET /list": {
+            "description": "列出所有作品資料",
+            "response": [
+                {
+                    "id": "number - 作品 ID",
+                    "name": "string - 作品識別名稱",
+                    "title": "string - 作品標題",
+                    "desc": "string - 作品描述",
+                    "created_at": "string - 作品建立時間 (ISO 8601 格式)"
+                }
+            ]
+        },
+        "GET /list/{number}": {
+            "description": "列出最新的 N 筆作品資料",
+            "parameters": {
+                "number": "要列出的作品數量"
+            },
+            "response": "和 GET /list 相同，但只包含最新的 N 筆資料"
+        },
+        "POST /add": {
+            "description": "新增作品資料",
+            "body": {
+                "apiKey": "string - API Key",
+                "name": "作品識別名稱",
+                "title": "作品標題",
+                "desc": "作品描述"
+            },
+            "response": {
+                "success": "boolean - 是否成功",
+                "message": "string - 回應訊息"
+            }
+        },
+        "DELETE /del": {
+            "description": "刪除最後一筆作品資料",
+            "body": {
+                "apiKey": "string - API Key"
+            },
+            "response": {
+                "success": "boolean - 是否成功",
+                "message": "string - 回應訊息"
+            }
+        },
+        "DELETE /del/{id}": {
+            "description": "刪除指定 ID 的作品資料",
+            "parameters": {
+                "id": "要刪除的作品 ID"
+            },
+            "body": {
+                "apiKey": "string - API Key"
+            },
+            "response": {
+                "success": "boolean - 是否成功",
+                "message": "string - 回應訊息"
+            }
+        },
+        "note": "新增和刪除操作需要 API Key 才能存取"
+    }
+}

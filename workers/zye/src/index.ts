@@ -8,10 +8,7 @@ import password from "./templates/password.html";
 
 export default {
   	async fetch(request: Request, env: Env): Promise<Response> {
-		const url = new URL(request.url);
-		const path = url.pathname;
-
-		// CORS headers
+		// CORS 標頭
 		const corsHeaders = {
 			"Access-Control-Allow-Origin": "*",
 			"Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
@@ -24,6 +21,9 @@ export default {
 				headers: corsHeaders,
 			});
 		}
+
+		const url = new URL(request.url);
+		const path = url.pathname;
 
 		// 處理靜態資源請求
 		if (path === "/" && request.method === "GET") {
