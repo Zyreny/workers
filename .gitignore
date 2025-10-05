@@ -128,4 +128,3 @@ dist
 .env*
 !.env.example
 .wrangler/
-wrangler.jsonc

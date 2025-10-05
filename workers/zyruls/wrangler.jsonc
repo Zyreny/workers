@@ -1,0 +1,21 @@
+{
+    "$schema": "../../node_modules/wrangler/config-schema.json",
+    "name": "zyruls",
+    "main": "src/index.ts",
+    "compatibility_date": "2025-10-03",
+    "observability": {
+        "enabled": true
+    },
+    "routes": [
+        {
+            "pattern": "api.zyreny.com/zyruls*",
+            "zone_id": "272c3dc017aa4a2c6e28d0e7a44de6ad"
+        }
+    ],
+	"kv_namespaces": [
+		{
+			"binding": "URL_KV",
+			"id": "e176de05199d489a9a6fd34cfe2557d4"
+		}
+	]
+}

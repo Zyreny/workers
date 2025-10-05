@@ -1,0 +1,22 @@
+{
+    "$schema": "../../node_modules/wrangler/config-schema.json",
+    "name": "data",
+    "main": "src/index.ts",
+    "compatibility_date": "2025-10-04",
+    "observability": {
+        "enabled": true
+    },
+    "routes": [
+        {
+            "pattern": "api.zyreny.com/data*",
+            "zone_id": "272c3dc017aa4a2c6e28d0e7a44de6ad"
+        }
+    ],
+	"d1_databases": [
+        {
+            "binding": "DATA_DB",
+            "database_name": "zyreny_data",
+            "database_id": "97deeec4-428a-4ef3-baad-7aea2afaa521"
+        }
+    ]
+}
