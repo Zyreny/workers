@@ -1,8 +1,8 @@
 {
     "name": "Zyreny 網站資料操作 API",
     "description": "這個 API 可以讓你取得 Zyreny 網站的各種資料，例如新聞、專案資料等等。這個 API 使用 Cloudflare Workers 無伺服器後端服務部署在 api.zyreny.com/data ，資料儲存庫使用 Cloudflare D1",
-    "version": "v1.0.0",
-    "commitMessage": "feat: 完成 API 重構",
+    "version": "v1.0.1",
+    "commitMessage": "refactor: 將 data API 不同端點處理分開",
     "baseUrl": "https://api.zyreny.com/data",
     "endpoints": {
         "/": "這個 API 文檔",

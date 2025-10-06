@@ -1,8 +1,8 @@
 {
     "name": "Zyruls 縮網址 API",
     "description": "這個 API 可以讓你建立短網址或是列出、刪除你建立的短網址，建立的短網址會在 zye.me/XXX 上。此 API 使用 Cloudflare Workers 無伺服器後端服務部署在 api.zyreny.com/zyruls 、短網址服務的鍵值儲存庫使用 Cloudflare KV",
-    "version": "v1.1.0",
-    "commitMessage": "API 文檔處理方式改為從 JSON 檔案讀取",
+    "version": "v1.1.1",
+    "commitMessage": "refactor: 將 zyruls API 不同端點處理分開",
     "baseUrl": "https://api.zyreny.com/zyruls",
     "endpoints": {
         "GET /": {
