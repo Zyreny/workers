@@ -1,19 +1,12 @@
 import baseDocs from "./docs/base.json";
 
-import jsonRes from "./utils/response";
+import json, { corsHeaders } from "./utils/response";
 
 import * as projsAPI from "./api/projs";
 import * as newsAPI from "./api/news";
 
 export default {
     async fetch(request: Request, env: Env): Promise<Response> {
-        // CORS 標頭
-        const corsHeaders: Record<string, string> = {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type",
-        };
-
         const method: string = request.method;
 
         // 處理 Preflight 請求
@@ -30,24 +23,23 @@ export default {
 
         // 路由請求
         if (apiPath.startsWith("/projs")) {
-            return await projsAPI.handle(apiPath, request, env, corsHeaders);
+            return await projsAPI.handle(apiPath, request, env);
         }
 
         if (apiPath.startsWith("/news")) {
-            return await newsAPI.handleNews(apiPath, request, env, corsHeaders);
+            return await newsAPI.handle(apiPath, request, env);
         }
 
         if (apiPath === "/") {
-            return jsonRes(baseDocs, 200, corsHeaders, 4);
+            return json(baseDocs, 200, 4);
         }
 
-        return jsonRes(
+        return json(
             {
                 success: false,
                 message: `找不到 "${method} ${apiPath}" 的端點， "GET /" 可以查看這個 API 的文檔`,
             },
-            404,
-            corsHeaders
+            404
         );
     },
 };

@@ -1,6 +1,6 @@
 import newsDocs from "../docs/news.json";
 
-import jsonRes from "../utils/response";
+import json from "../utils/response";
 import requireApiKey from "../utils/apiKey";
 
 interface NewsRecord {
@@ -20,17 +20,16 @@ const CATEGORY_ZH: Record<string, string> = {
 };
 
 // 處理新聞資料相關請求
-export async function handleNews(
+export async function handle(
     apiPath: string,
     req: Request,
-    env: Env,
-    headers: Record<string, string>
+    env: Env
 ): Promise<Response> {
     const paths: string[] = apiPath.split("/").filter(Boolean);
     const method: string = req.method;
 
     // API 文檔
-    if (!paths[1]) return jsonRes(newsDocs, 200, headers, 4);
+    if (!paths[1]) return json(newsDocs, 200, 4);
 
     // 列出新聞資料
     if (paths[1] === "list" && method === "GET") {
@@ -60,20 +59,16 @@ export async function handleNews(
                 (result.categoryZH = CATEGORY_ZH[result.category as string])
         );
 
-        return jsonRes(results, 200, headers);
+        return json(results, 200);
     }
 
     // 新增新聞資料
     if (paths[1] === "add" && method === "POST") {
-        const auth = await requireApiKey(req, env, headers);
+        const auth = await requireApiKey(req, env);
         if (!auth.ok)
             return (
                 auth.response ??
-                jsonRes(
-                    { success: false, message: "無效的 API Key" },
-                    403,
-                    headers
-                )
+                json({ success: false, message: "無效的 API Key" }, 403)
             );
 
         const data: Record<string, any> = auth.data!;
@@ -84,24 +79,16 @@ export async function handleNews(
             .bind(data.category, data.title, data.content)
             .run();
 
-        return jsonRes(
-            { success: true, message: "新聞資料新增成功" },
-            201,
-            headers
-        );
+        return json({ success: true, message: "新聞資料新增成功" }, 201);
     }
 
     // 刪除新聞資料
     if (paths[1] === "del" && method === "DELETE") {
-        const auth = await requireApiKey(req, env, headers);
+        const auth = await requireApiKey(req, env);
         if (!auth.ok)
             return (
                 auth.response ??
-                jsonRes(
-                    { success: false, message: "無效的 API Key" },
-                    403,
-                    headers
-                )
+                json({ success: false, message: "無效的 API Key" }, 403)
             );
 
         let query: string = "DELETE FROM news";
@@ -117,19 +104,14 @@ export async function handleNews(
         const stmt: D1PreparedStatement = env.DATA_DB.prepare(query);
         await (id !== null ? stmt.bind(id).run() : stmt.run());
 
-        return jsonRes(
-            { success: true, message: "新聞資料刪除成功" },
-            200,
-            headers
-        );
+        return json({ success: true, message: "新聞資料刪除成功" }, 200);
     }
 
-    return jsonRes(
+    return json(
         {
             success: false,
             message: `找不到 "${method} ${apiPath}" 的端點， "GET /" 可以查看這個 API 的文檔`,
         },
-        404,
-        headers
+        404
     );
 }

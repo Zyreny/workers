@@ -1,4 +1,4 @@
-import jsonRes from "./response";
+import json from "./response";
 
 // 驗證 API Key
 async function verifyApiKey(apiKey: string, env: Env): Promise<boolean> {
@@ -17,8 +17,7 @@ async function verifyApiKey(apiKey: string, env: Env): Promise<boolean> {
 
 export default async function requireApiKey(
     req: Request,
-    env: Env,
-    headers: Record<string, string>
+    env: Env
 ): Promise<{ ok: boolean; response?: Response; data?: Record<string, any> }> {
     let data: Record<string, any> = {};
     try {
@@ -26,10 +25,9 @@ export default async function requireApiKey(
     } catch {
         return {
             ok: false,
-            response: jsonRes(
+            response: json(
                 { success: false, message: "無效的 JSON 格式" },
-                400,
-                headers
+                400
             ),
         };
     }
@@ -37,12 +35,8 @@ export default async function requireApiKey(
     if (!(await verifyApiKey(data.apiKey, env))) {
         return {
             ok: false,
-            response: jsonRes(
-                { success: false, message: "無效的 API Key" },
-                403,
-                headers
-            ),
-        }
+            response: json({ success: false, message: "無效的 API Key" }, 403),
+        };
     }
 
     return { ok: true, data };
