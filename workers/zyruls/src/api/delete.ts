@@ -1,5 +1,5 @@
 import kvOrThrow from "../utils/kvOperation";
-import json from "../utils/response";
+import { json } from "../utils/response";
 
 // 刪除短網址
 export async function handle(
@@ -7,14 +7,16 @@ export async function handle(
     req: Request,
     env: Env
 ): Promise<Response> {
-    const existingCode = await kvOrThrow(() => env.URL_KV.get(code));
+    const existingCode: string | null = await kvOrThrow(() =>
+        env.URL_KV.get(code)
+    );
 
     if (!existingCode) {
         return json({ success: false, message: "找不到該短網址" }, 404);
     }
 
-    const clientIP = req.headers.get("CF-Connecting-IP") || "unknown";
-    const urlData = JSON.parse(existingCode);
+    const clientIP: string = req.headers.get("CF-Connecting-IP") || "unknown";
+    const urlData: { creator: string } = JSON.parse(existingCode);
 
     if (urlData.creator !== clientIP) {
         return json(
@@ -25,12 +27,12 @@ export async function handle(
 
     await kvOrThrow(() => env.URL_KV.delete(code));
 
-    const indexKey = `index:${urlData.creator}`;
+    const indexKey: string = `index:${urlData.creator}`;
 
-    const existingIndex = await kvOrThrow(() => env.URL_KV.get(indexKey));
+    const existingIndex: string | null = await kvOrThrow(() => env.URL_KV.get(indexKey));
     if (existingIndex) {
-        const urlIndex = JSON.parse(existingIndex);
-        const updatedIndex = urlIndex.filter(
+        const urlIndex: Array<{ code: string }> = JSON.parse(existingIndex);
+        const updatedIndex: Array<{ code: string }> = urlIndex.filter(
             (item: { code: string }) => item.code !== code
         );
 

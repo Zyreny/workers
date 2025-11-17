@@ -1,6 +1,6 @@
 import docs from "./docs.json";
 
-import json, { corsHeaders } from "./utils/response";
+import { json, corsHeaders } from "./utils/response";
 
 import * as createAPI from "./api/create";
 import * as listAPI from "./api/list";
@@ -16,13 +16,13 @@ export default {
             });
         }
 
-        const url = new URL(request.url);
-        const path = url.pathname;
-        const method = request.method;
+        const url: URL = new URL(request.url);
+        const path: string = url.pathname;
+        const method: string = request.method;
 
         try {
             // 處理 API 請求
-            const apiPath =
+            const apiPath: string =
                 path.replace("/zyruls", "").replace(/\/$/, "") || "/";
 
             if (apiPath === "/create" && method === "POST")
@@ -32,7 +32,7 @@ export default {
                 return await listAPI.handle(request, env);
 
             if (apiPath.startsWith("/del/") && method === "DELETE") {
-                const code = apiPath.split("/")[2];
+                const code: string = apiPath.split("/")[2];
                 return await deleteAPI.handle(code, request, env);
             }
 

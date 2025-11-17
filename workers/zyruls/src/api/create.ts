@@ -1,5 +1,9 @@
-import json from "../utils/response";
+import { json, json400 } from "../utils/response";
 import kvOrThrow from "../utils/kvOperation";
+import isValidUrl from "../utils/url";
+import { formatTwTime, getTwTime } from "../utils/time";
+import hash from "../utils/hash";
+import genShortCode from "../utils/code";
 
 interface RequestBody {
     url: string;
@@ -18,7 +22,7 @@ export async function handle(req: Request, env: Env): Promise<Response> {
     const { url, custom, password, exp, meta }: RequestBody = await req.json();
 
     // 基本驗證
-    const contentType = req.headers.get("Content-Type");
+    const contentType: string | null = req.headers.get("Content-Type");
     if (!contentType || !contentType.includes("application/json"))
         return json400("Content-Type 必須是 application/json");
 
@@ -26,7 +30,7 @@ export async function handle(req: Request, env: Env): Promise<Response> {
     if (!url || !isValidUrl(url)) return json400("請輸入有效的原始網址");
 
     // 處理短網址代碼
-    let shortCode = "";
+    let shortCode: string = "";
     if (custom) {
         if (
             !/^[a-zA-Z0-9-_]+$/.test(custom) ||
@@ -37,7 +41,9 @@ export async function handle(req: Request, env: Env): Promise<Response> {
                 "自訂代碼必須是 3-20 個字符，且只能包含英文字母、數字、連字符和底線"
             );
 
-        const existing = await kvOrThrow(() => env.URL_KV.get(custom));
+        const existing: string | null = await kvOrThrow(() =>
+            env.URL_KV.get(custom)
+        );
 
         if (existing) {
             return json(
@@ -52,7 +58,7 @@ export async function handle(req: Request, env: Env): Promise<Response> {
     }
 
     // 處理過期時間
-    let expDate = null;
+    let expDate: Date | null = null;
     if (exp) {
         expDate = new Date(exp);
         if (isNaN(expDate.getTime()) || expDate <= getTwTime())
@@ -60,7 +66,7 @@ export async function handle(req: Request, env: Env): Promise<Response> {
     }
 
     // 處理密碼
-    let hashedPassword = null;
+    let hashedPassword: string | null = null;
     if (password) {
         if (password.length > 100)
             return json400("密碼長度不能超過 100 個字符");
@@ -82,7 +88,7 @@ export async function handle(req: Request, env: Env): Promise<Response> {
     }
 
     // 儲存資料
-    const urlData = {
+    const urlData: Record<string, any> = {
         url: url,
         createdAt: formatTwTime(),
         password: hashedPassword || null,
@@ -98,10 +104,14 @@ export async function handle(req: Request, env: Env): Promise<Response> {
         userAgent: req.headers.get("User-Agent") || "unknown",
     };
 
-    const indexKey = `index:${urlData.creator}`;
+    const indexKey: string = `index:${urlData.creator}`;
 
-    const existingIndex = await kvOrThrow(() => env.URL_KV.get(indexKey));
-    const urlIndex = existingIndex ? JSON.parse(existingIndex) : [];
+    const existingIndex: string | null = await kvOrThrow(() =>
+        env.URL_KV.get(indexKey)
+    );
+    const urlIndex: Array<Record<string, any>> = existingIndex
+        ? JSON.parse(existingIndex)
+        : [];
 
     if (urlIndex.length >= 75) {
         return json(
@@ -139,60 +149,4 @@ export async function handle(req: Request, env: Env): Promise<Response> {
         },
         201
     );
-}
-
-// 輔助函式
-
-// URL 驗證
-function isValidUrl(str: string) {
-    try {
-        const url = new URL(str);
-        return ["http:", "https:"].includes(url.protocol);
-    } catch (_) {
-        return false;
-    }
-}
-
-// 產生代碼
-async function genShortCode(env: Env): Promise<string> {
-    const chars =
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let code = "";
-    for (let i = 0; i < 6; i++) {
-        code += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-
-    const existing = await kvOrThrow(() => env.URL_KV.get(code));
-
-    if (existing) {
-        return genShortCode(env);
-    }
-
-    return code;
-}
-
-// 取得台灣時間
-function getTwTime(date = new Date()) {
-    const twTime = new Date(date.getTime() + 8 * 60 * 60 * 1000);
-    return twTime;
-}
-
-// 格式化台灣時間為 ISO 字串
-function formatTwTime(date = new Date()) {
-    const twTime = getTwTime(date);
-    const isoString = twTime.toISOString();
-    return isoString.replace("Z", "+08:00");
-}
-
-// 文字雜湊
-async function hash(text: string): Promise<string> {
-    const enc = new TextEncoder().encode(text);
-    const hashBuffer = await crypto.subtle.digest("SHA-256", enc);
-    return Array.from(new Uint8Array(hashBuffer))
-        .map((b) => b.toString(16).padStart(2, "0"))
-        .join("");
-}
-
-function json400(msg: string): Response {
-    return json({ success: false, message: msg }, 400);
 }

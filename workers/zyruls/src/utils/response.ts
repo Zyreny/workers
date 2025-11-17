@@ -1,5 +1,5 @@
 // JSON 回應
-export default function json(
+export function json(
     body: Object,
     status: number,
     space: number | undefined = undefined
@@ -10,8 +10,12 @@ export default function json(
     });
 }
 
+export function json400(msg: string): Response {
+    return json({ success: false, message: msg }, 400);
+}
+
 // CORS 標頭
-export const corsHeaders = {
+export const corsHeaders: Record<string, string> = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",

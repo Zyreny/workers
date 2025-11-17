@@ -1,24 +1,22 @@
-import json from "./response";
+import { json } from "./response";
 
 // KV 操作
-async function kvOperation(
-    op: () => Promise<any>,
-) {
+async function kvOperation(op: () => Promise<any>) {
     try {
         const results = await op();
         return { success: true, data: results };
     } catch (e) {
-        const errMsg = (
+        const errMsg: string = (
             e instanceof Error ? e.message : String(e) || ""
         ).toLowerCase();
-        const kvLimitHit =
+        const kvLimitHit: boolean =
             errMsg.includes("kv") &&
             (errMsg.includes("limit exceeded") ||
                 errMsg.includes("quota exceeded") ||
                 errMsg.includes("rate limit") ||
                 errMsg.includes("too many requests"));
 
-        const response = kvLimitHit
+        const response: Response = kvLimitHit
             ? json(
                   {
                       success: false,
@@ -41,9 +39,7 @@ async function kvOperation(
 }
 
 // KV 操作代理函式
-export default async function kvOrThrow(
-    op: () => Promise<any>
-): Promise<any> {
+export default async function kvOrThrow(op: () => Promise<any>): Promise<any> {
     const res = await kvOperation(op);
     if (!res.success) throw res.response;
     return res.data;
