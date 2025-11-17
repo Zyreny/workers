@@ -2,11 +2,17 @@
 export default function json(
     body: Object,
     status: number,
-    headers: Record<string, string>,
     space: number | undefined = undefined
 ): Response {
     return new Response(JSON.stringify(body, null, space), {
         status: status,
-        headers: { "Content-Type": "application/json", ...headers },
+        headers: { "Content-Type": "application/json", ...corsHeaders },
     });
 }
+
+// CORS 標頭
+export const corsHeaders = {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+};

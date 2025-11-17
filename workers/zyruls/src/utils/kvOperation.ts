@@ -3,7 +3,6 @@ import json from "./response";
 // KV 操作
 async function kvOperation(
     op: () => Promise<any>,
-    headers: Record<string, string>
 ) {
     try {
         const results = await op();
@@ -26,8 +25,7 @@ async function kvOperation(
                       message:
                           "請稍後再試一次，如果嘗試多次之後還是失敗請等台灣時間早上8點後再試",
                   },
-                  503,
-                  headers
+                  503
               )
             : json(
                   {
@@ -35,8 +33,7 @@ async function kvOperation(
                       message:
                           "伺服器錯誤，請稍後再試，如果嘗試多次之後還是失敗請等台灣時間早上8點後再試",
                   },
-                  500,
-                  headers
+                  500
               );
 
         return { success: false, response };
@@ -45,10 +42,9 @@ async function kvOperation(
 
 // KV 操作代理函式
 export default async function kvOrThrow(
-    op: () => Promise<any>,
-    headers: Record<string, string>
+    op: () => Promise<any>
 ): Promise<any> {
-    const res = await kvOperation(op, headers);
+    const res = await kvOperation(op);
     if (!res.success) throw res.response;
     return res.data;
 }
