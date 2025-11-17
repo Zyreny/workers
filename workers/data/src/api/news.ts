@@ -1,6 +1,6 @@
 import newsDocs from "../docs/news.json";
 
-import json from "../utils/response";
+import { json } from "../utils/response";
 import requireApiKey from "../utils/apiKey";
 
 interface NewsRecord {
@@ -64,7 +64,7 @@ export async function handle(
 
     // 新增新聞資料
     if (paths[1] === "add" && method === "POST") {
-        const auth = await requireApiKey(req, env);
+        const auth: Record<string, any> = await requireApiKey(req, env);
         if (!auth.ok)
             return (
                 auth.response ??
@@ -84,7 +84,7 @@ export async function handle(
 
     // 刪除新聞資料
     if (paths[1] === "del" && method === "DELETE") {
-        const auth = await requireApiKey(req, env);
+        const auth: Record<string, any> = await requireApiKey(req, env);
         if (!auth.ok)
             return (
                 auth.response ??

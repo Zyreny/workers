@@ -1,6 +1,6 @@
 import projsDocs from "../docs/projs.json";
 
-import json from "../utils/response";
+import { json } from "../utils/response";
 import requireApiKey from "../utils/apiKey";
 
 interface ProjRecord {

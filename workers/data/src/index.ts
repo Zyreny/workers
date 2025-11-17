@@ -1,6 +1,6 @@
 import baseDocs from "./docs/base.json";
 
-import json, { corsHeaders } from "./utils/response";
+import { json, corsHeaders } from "./utils/response";
 
 import * as projsAPI from "./api/projs";
 import * as newsAPI from "./api/news";

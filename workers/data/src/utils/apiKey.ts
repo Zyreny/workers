@@ -1,4 +1,4 @@
-import json from "./response";
+import { json } from "./response";
 
 // 驗證 API Key
 async function verifyApiKey(apiKey: string, env: Env): Promise<boolean> {

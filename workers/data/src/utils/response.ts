@@ -1,5 +1,5 @@
 // JSON 回應
-export default function json(
+export function json(
     body: Object,
     status: number,
     spaces: number | undefined = undefined
