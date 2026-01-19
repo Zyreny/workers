@@ -36,25 +36,19 @@ export default {
         const method: string = request.method;
 
         // 路由請求
-        // try {
-        //     if (apiPath === "/register" && method === "POST")
-        //         return await registerAPI.handle(request, env);
+        try {
+            if (apiPath === "/register" && method === "POST")
+                return await registerAPI.handle(request, env);
 
-        //     if (apiPath === "/verify" && method === "POST")
-        //         return await verifyAPI.handle(request, env);
-        // } catch (error) {
-        //     return json(
-        //         { success: false, message: "伺服器錯誤", error: String(error) },
-        //         500,
-        //         request
-        //     );
-        // }
-
-        if (apiPath === "/register" && method === "POST")
-            return await registerAPI.handle(request, env);
-
-        if (apiPath === "/verify" && method === "POST")
-            return await verifyAPI.handle(request, env);
+            if (apiPath === "/verify" && method === "POST")
+                return await verifyAPI.handle(request, env);
+        } catch (error) {
+            return json(
+                { success: false, message: "伺服器錯誤", error: String(error) },
+                500,
+                request
+            );
+        }
 
         return new Response("找不到資源", { status: 404 });
     },

@@ -1,5 +1,4 @@
 interface Env {
-    VER_KV: KVNamespace;
     TOKEN_KV: KVNamespace;
     USER_DB: D1Database;
     MJ_API_KEY: string;
@@ -8,20 +7,26 @@ interface Env {
     JWT_PUBLIC_KEY: string;
 }
 
+interface VerificationData {
+    code: string;
+    email: string;
+    type: "register" | "reset_password";
+    username?: string;
+    password_hash?: string;
+    salt?: string;
+    expires_at: number;
+}
+
 interface RegisterRequestBody {
     username: string;
     password: string;
     email: string;
 }
 
-interface VerificationData {
-    code: string;
-    email: string;
-    type: "register" | "login";
-    username?: string;
-    password_hash?: string;
-    salt?: string;
-    timestamp: number;
+interface JsonResponseBody {
+    success: boolean;
+    message?: string;
+    [key: string]: any;
 }
 
 interface JwtHeader {

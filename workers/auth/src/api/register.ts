@@ -11,7 +11,7 @@ export async function handle(req: Request, env: Env): Promise<Response> {
     let reqBody: any;
     try {
         reqBody = await req.json();
-    } catch (error) {
+    } catch (err) {
         return json400("無效的 JSON 格式", req);
     }
 
@@ -28,7 +28,8 @@ export async function handle(req: Request, env: Env): Promise<Response> {
         return json400("使用者名稱只能包含字母、數字和底線", req);
 
     const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) return json400("無效的電子郵件格式", req);
+    const lowerEmail: string = email.toLowerCase();
+    if (!emailRegex.test(lowerEmail)) return json400("無效的電子郵件格式", req);
 
     if (password.length < 8 || password.length > 64)
         return json400("密碼長度必須介於 8 到 64 個字元之間", req);
@@ -57,25 +58,7 @@ export async function handle(req: Request, env: Env): Promise<Response> {
     const hashedPassword: string = await hashPassword(password, salt);
 
     // 發送驗證碼郵件
-    try {
-        await registerEmailVer(email, username, hashedPassword, salt, env);
-    } catch (error: any) {
-        if (error.message === "Pending verification") {
-            return json(
-                {
-                    success: false,
-                    message: "該電子郵件或使用者名稱正在進行驗證，請稍後再試",
-                },
-                409,
-                req
-            );
-        }
-        return json({ success: false, message: "郵件發送失敗" }, 500, req);
-    }
+    const res = await registerEmailVer(lowerEmail, lowerUsername, hashedPassword, salt, env, req);
 
-    return json(
-        { success: true, message: "驗證碼已經發送到你的電子郵件" },
-        200,
-        req
-    );
+    return res;
 }

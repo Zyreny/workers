@@ -18,10 +18,10 @@ export async function createJWT(
 
     const iat: number = Math.floor(Date.now() / 1000);
     const exp: number = iat + ACCESS_TOKEN_EXP;
-    payload = { ...payload, iat, exp };
+    payload = { ...payload, iat, exp, iss: "Zyreny" };
     const payloadB64: string = b64UrlEncode(JSON.stringify(payload));
 
-    const privateKeyU8A: Uint8Array = b64ToU8A(b64Encode(privateKey));
+    const privateKeyU8A: Uint8Array = b64ToU8A(privateKey);
     const key: CryptoKey = await crypto.subtle.importKey(
         "pkcs8",
         privateKeyU8A,
@@ -52,7 +52,7 @@ export async function verifyJWT(
     const header: JwtHeader = JSON.parse(headerStr);
     if (header.alg !== "EdDSA") return false;
 
-    const publicKeyU8A: Uint8Array = b64ToU8A(b64Encode(publicKey));
+    const publicKeyU8A: Uint8Array = b64ToU8A(publicKey);
     const key: CryptoKey = await crypto.subtle.importKey(
         "spki",
         publicKeyU8A,

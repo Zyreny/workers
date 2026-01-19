@@ -5,7 +5,7 @@ export async function sendEmail(
     subject: string,
     env: Env,
     vars: Record<string, any>
-): Promise<any> {
+): Promise<Record<string, any>> {
     const templateIdMap: Record<string, number> = {
         verification: 7496518,
     };

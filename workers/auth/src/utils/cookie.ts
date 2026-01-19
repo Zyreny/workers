@@ -4,7 +4,7 @@ export function buildRefreshCookie(
     value: string,
     maxAge: number = REFRESH_TOKEN_EXP
 ): string {
-    const domain: string = DEV_MODE ? "localhost" : ".zyreny.com";
+    const domain: string = DEV_MODE ? "127.0.0.1" : ".zyreny.com";
     return [
         `refresh=${value}`,
         `HttpOnly`,

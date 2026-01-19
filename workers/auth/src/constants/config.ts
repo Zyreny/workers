@@ -1,6 +1,9 @@
 // AT, RT 過期時間
-export const ACCESS_TOKEN_EXP: number = 900; // 15 mins
-export const REFRESH_TOKEN_EXP: number = 60 * 60 * 24 * 7; // 7 days
+export const ACCESS_TOKEN_EXP: number = 60 * 15; // 15 分鐘
+export const REFRESH_TOKEN_EXP: number = 60 * 60 * 24 * 7; // 7 天
+
+// 驗證碼過期時間
+export const VER_CODE_EXP: number = 60 * 10; // 10 分鐘
 
 // 允許的來源
 export const ALLOWED_ORIGINS: string[] = [];

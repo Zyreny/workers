@@ -79,3 +79,10 @@ export function b64UrlDecode(b64Url: string): string {
     const decoder: TextDecoder = new TextDecoder();
     return decoder.decode(u8A);
 }
+
+// 生成隨機 6 位數驗證碼
+export function genVerCode(): string {
+    const randomNum: number = crypto.getRandomValues(new Uint32Array(1))[0];
+    const code: number = randomNum % 1000000;
+    return code.toString().padStart(6, "0");
+}

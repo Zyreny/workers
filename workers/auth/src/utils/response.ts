@@ -2,7 +2,7 @@ import { validateOrigin } from "./validation";
 
 // JSON 回應
 export function json(
-    body: Object,
+    body: JsonResponseBody,
     status: number,
     req: Request,
     space: number | undefined = undefined,
